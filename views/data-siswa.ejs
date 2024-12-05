@@ -1,0 +1,63 @@
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h5 class="mt-4">
+                <div class="shadow p-3 mb-3 bg-white rounded">Data Siswa</div>
+            </h5>
+            <a href="/data-siswa/add" class="btn btn-sm btn-primary mb-3"><i class="bi bi-plus"></i> Tambah Data</a>
+            <% if (msg.length !== 0) { %>
+                <div id="myAlert" class="alert alert-success" role="alert">
+                    <%= msg %>
+                </div>
+            <% } %>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                </div>
+                <div class="card shadow bg-white mt-3">
+                <div class="card-body">
+                    <table class="table table-bordered table-hover table-striped" id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>NISN</th>
+                                <th>NIK</th>
+                                <th>No.KK</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (Dsiswa.length === 0) { %>
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="alert alert-danger fw-bold" role="alert">
+                                            Data Siswa/Siswi Masih Kosong
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% } %>
+                            <% Dsiswa.forEach((siswa, i) => { i++ %>
+                                <tr> 
+                                    <td width="50"><%= i++ %></td> 
+                                    <td><%= siswa.nama %></td>
+                                    <td><%= siswa.nisn %></td> 
+                                    <td><%= siswa.nik %></td> 
+                                    <td><%= siswa.nokk %></td>
+                                    <td class ="text-center" width="150">
+                                        <a href="/data-siswa/detail/<%= siswa.nisn %>" class="btn btn-sm btn-info"><i class="bi bi-eye"></i> Detail</a>
+                                        <a href="/data-siswa/<%= siswa.nisn %>" class="btn btn-sm btn-danger" onclick="deleteSiswa('<%= siswa.nisn %>', '<%= siswa.nama %>'); return false;"> 
+                                            <i class="bi bi-trash3-fill"></i> Delete 
+                                        </a>
+                                    </td> 
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

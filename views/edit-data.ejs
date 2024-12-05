@@ -1,0 +1,150 @@
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h5 class="mt-4">
+                <div class="shadow p-3 mb-3 bg-white rounded">Edit Data Siswa</div>
+            </h5>
+
+            <% if (errors && errors != 'undefined') { %>
+                <div class="container mt-4"> 
+                    <div class="alert alert-danger" role="alert"> 
+                        <ul>
+                            <% errors.forEach(error => { %>
+                                <li>
+                                    <%= error.msg %>
+                                </li>
+                            <% }) %>
+                        </ul> 
+                    </div>
+                </div>
+            <% } %>
+
+            <form method="post" action="/data-siswa?_method=PUT">
+                <input type="hidden" name="_id" value="<%= siswa._id %>">
+                <input type="hidden" name="nama" value="<%= siswa.nama %>">
+                <div class="card shadow bg-white">
+                    <div class="card-header">
+                        <strong>Data Siswa</strong>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row mb-3">
+                            <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap :</label>
+                            <div class="col-sm-9">
+                                <input type="text" value="<%= siswa.nama %>" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama Lengkap" disabled>
+                            </div>
+                        </div>
+                
+                        <div class="form-group row mb-3">
+                            <label for="jk" class="col-sm-3 col-form-label">Jenis Kelamin :</label>
+                            <div class="col-sm-9">
+                                <select class="form-select" id="jk" name="jk" <%= siswa.jk ? "disabled" : "" %>>
+                                    <option value="" selected disabled>Pilih Jenis Kelamin</option>
+                                    <option value="Laki-Laki" <%= siswa.jk === "Laki-Laki" ? "selected" : "" %>>Laki-Laki</option> 
+                                    <option value="Perempuan" <%= siswa.jk === "Perempuan" ? "selected" : "" %>>Perempuan</option>
+                                </select>
+                            </div>
+                        </div>
+                
+                        <div class="form-group row mb-3">
+                            <label for="nisn" class="col-sm-3 col-form-label">NISN :</label>
+                            <div class="col-sm-9">
+                                <div class="form-group is-invalid">
+                                    <input type="number" value="<%= siswa.nisn %>" class="form-control" id="nisn" name="nisn" placeholder="Masukkan NISN" disabled>
+                                </div>
+                                <% if (errors && errors.find(e => e.param === 'nisn')) { %> 
+                                    <div class="invalid-feedback"> 
+                                        <%= errors.find(e => e.param === 'nisn').msg %> 
+                                    </div> 
+                                <% } %>
+                            </div>
+                        </div>
+                
+                        <div class="form-group row mb-3">
+                            <label for="nik" class="col-sm-3 col-form-label">NIK :</label>
+                            <div class="col-sm-9">
+                                <div class="form-group is-invalid">
+                                    <input type="number" value="<%= siswa.nik %>" class="form-control" id="nik" name="nik" placeholder="Masukkan NIK" disabled>
+                                </div>
+                                <% if (errors && errors.find(e => e.param === 'nik')) { %> 
+                                    <div class="invalid-feedback"> 
+                                        <%= errors.find(e => e.param === 'nik').msg %> 
+                                    </div> 
+                                <% } %>
+                            </div>
+                        </div>
+                
+                        <div class="form-group row mb-3">
+                            <label for="nokk" class="col-sm-3 col-form-label">No.KK :</label>
+                            <div class="col-sm-9">
+                                <input type="number" value="<%= siswa.nokk %>" class="form-control" id="nokk" name="nokk" placeholder="Masukkan No.KK" disabled>
+                            </div>
+                        </div>
+                
+                        <div class="form-group row mb-3">
+                            <label for="tingkat" class="col-sm-3 col-form-label">Tingkat Kelas Saat Ini :</label>
+                            <div class="col-sm-9">
+                                <select class="form-select" id="tingkat" name="tingkat" required>
+                                    <option value="" selected disabled>Pilih Tingkat Kelas</option>
+                                    <option value="X" <%= siswa.tingkat=== "X" ? "selected" : "" %>>X</option> 
+                                    <option value="XI" <%= siswa.tingkat=== "XI" ? "selected" : "" %>>XI</option> 
+                                    <option value="XII" <%= siswa.tingkat=== "XII" ? "selected" : "" %>>XII</option>
+                                </select>
+                            </div>
+                        </div>
+                
+                        <div class="form-group row mb-3">
+                            <label for="rombel" class="col-sm-3 col-form-label">Rombel :</label>
+                            <div class="col-sm-9">
+                                <select class="form-select" id="rombel" name="rombel" required>
+                                    <option value="" selected disabled>Pilih Jurusan</option>
+                                    <option value="PPLG 1" <%= siswa.rombel=== "PPLG 1" ? "selected" : "" %>>PPLG 1</option>
+                                    <option value="PPLG 2" <%= siswa.rombel=== "PPLG 2" ? "selected" : "" %>>PPLG 2</option>
+                                    <option value="RPL 1" <%= siswa.rombel=== "RPL 1" ? "selected" : "" %>>RPL 1</option>
+                                    <option value="RPL 2" <%= siswa.rombel=== "RPL 2" ? "selected" : "" %>>RPL 2</option>
+                                </select>
+                            </div>
+                        </div>
+                
+                        <div class="form-group row mb-3">
+                            <label for="terdaftar" class="col-sm-3 col-form-label">Terdaftar Sebagai :</label>
+                            <div class="col-sm-9">
+                                <select class="form-select" id="terdaftar" name="terdaftar" required>
+                                    <option value="" selected disabled>Terdaftar Sebagai</option>
+                                    <option value="Siswa Baru" <%= siswa.terdaftar=== "Siswa Baru" ? "selected" : "" %>>Siswa Baru</option>
+                                    <option value="Pindahan" <%= siswa.terdaftar=== "Pindahan" ? "selected" : "" %>>Pindahan</option>
+                                </select>
+                            </div>
+                        </div>
+                
+                        <div class="form-group row mb-3">
+                            <label for="ttl" class="col-sm-3 col-form-label">Tempat Tanggal Lahir :</label>
+                            <div class="col-sm-9">
+                                <input type="text" value="<%= siswa.ttl %>" class="form-control" id="ttl" name="ttl" placeholder="Masukkan Tempat Tanggal Lahir" disabled>
+                            </div>
+                        </div>
+                
+                        <div class="form-group row mb-3">
+                            <label for="tgl_masuk" class="col-sm-3 col-form-label">Tanggal Masuk :</label>
+                            <div class="col-sm-9">
+                                <input type="date" value="<%= siswa.tgl_masuk %>" max="<%= new Date().toISOString().split('T')[0] %>" class="form-control" id="tgl_masuk" name="tgl_masuk" required>
+                            </div>
+                        </div>
+                
+                    </div>
+    
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-check2-square"></i> Update</button>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <a href="/data-siswa/detail/<%= siswa.nisn %>" class="btn btn-sm btn-success">&laquo; Kembali</a>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+            </form>
+        </div>
+    </main>
+</div>

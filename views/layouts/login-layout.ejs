@@ -1,0 +1,48 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title><%= title %></title>
+        <link rel="icon" href="img/favicon.png" type="img/x-icon">
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="bg-primary">
+        <div class="container">
+            <%- body %>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="/js/scripts.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () { 
+                document.getElementById('loginForm').addEventListener('submit', function(event) { 
+                    event.preventDefault(); 
+                    const username = document.getElementById('username').value; 
+                    const password = document.getElementById('password').value; 
+                    fetch('/login', { 
+                        method: 'POST', 
+                        headers: { 
+                            'Content-Type': 'application/json' 
+                        }, body: JSON.stringify({ username, password }) 
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Anda berhasil login'); 
+                            window.location.href = '/';
+                        } else { 
+                            alert('Gagal login: ' + data.message); 
+                        } 
+                    }) 
+                    .catch(error => { 
+                        console.error('Error:', error); 
+                        alert('Terjadi kesalahan saat mencoba login. Silakan coba lagi.'); 
+                    }); 
+                }); 
+            });
+        </script>
+    </body>
+</html>
